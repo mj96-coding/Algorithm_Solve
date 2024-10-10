@@ -11,10 +11,20 @@ vector<int> num;
 
 int ret;
 
+struct cmp
+{
+    bool operator()(int a, int b)
+    {
+        return a > b;
+    }
+};
+
 void input() 
 {
     cin >> N;
+
     num.resize(N);
+
     for (int i = 0; i < N; i++)
     {
         cin >> num[i];
@@ -23,16 +33,13 @@ void input()
 
 void solve() 
 {
-    // 최소 힙을 사용하여 카드 묶음을 관리
-    priority_queue<int, vector<int>, greater<int>> pq;
+    priority_queue<int, vector<int>, cmp> pq;
 
-    // 카드 묶음들을 힙에 삽입
     for (int i = 0; i < N; i++)
     {
         pq.push(num[i]);
     }
 
-    // 카드 묶음을 합쳐 나가며 최소 비교 횟수를 계산
     while (pq.size() > 1)
     {
         int first = pq.top(); pq.pop();
